@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>FocusFlow</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
     --bg: #0a0a0f;
@@ -380,7 +381,7 @@
   .add-btn:hover { transform: scale(1.05); }
 
   .task-list {
-    max-height: 260px;
+    max-height: 220px;
     overflow-y: auto;
     padding: 8px;
   }
@@ -485,6 +486,75 @@
   .pomo-dot.filled  { background: var(--work); border-color: var(--work); }
   .pomo-dot.current { background: var(--work); border-color: var(--work); animation: pulse 1.5s infinite; }
 
+  /* ── Weekly Chart ── */
+  .chart-section { margin-top: 24px; }
+
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+
+  .chart-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .chart-header h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; }
+
+  .chart-legend { display: flex; gap: 16px; align-items: center; }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .chart-body { padding: 20px 24px 16px; }
+  .chart-body canvas { max-height: 180px; }
+
+  .chart-loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .chart-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--border);
+  }
+
+  .chart-stat {
+    padding: 14px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .chart-stat:last-child { border-right: none; }
+
+  .chart-stat-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .chart-stat-label { font-size: 10px; color: var(--muted); letter-spacing: 0.5px; }
+
   .toast {
     position: fixed;
     bottom: 24px; left: 50%;
@@ -510,16 +580,19 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .timer-card                  { animation: fadeUp 0.5s ease both; }
-  .stat-card:nth-child(1)      { animation: fadeUp 0.5s 0.1s  ease both; }
-  .stat-card:nth-child(2)      { animation: fadeUp 0.5s 0.15s ease both; }
-  .task-panel                  { animation: fadeUp 0.5s 0.2s  ease both; }
-  .history-panel               { animation: fadeUp 0.5s 0.25s ease both; }
+  .timer-card             { animation: fadeUp 0.5s ease both; }
+  .stat-card:nth-child(1) { animation: fadeUp 0.5s 0.1s  ease both; }
+  .stat-card:nth-child(2) { animation: fadeUp 0.5s 0.15s ease both; }
+  .task-panel             { animation: fadeUp 0.5s 0.2s  ease both; }
+  .history-panel          { animation: fadeUp 0.5s 0.25s ease both; }
 
   @media (max-width: 720px) {
     .main-grid { grid-template-columns: 1fr; }
     .timer-card { padding: 32px 24px; }
     .timer-display { font-size: 42px; }
+    .chart-summary { grid-template-columns: 1fr; }
+    .chart-stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .chart-stat:last-child { border-bottom: none; }
   }
 </style>
 </head>
@@ -574,7 +647,6 @@
     </div>
 
     <div class="right-col">
-
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-label">Today</div>
@@ -605,9 +677,44 @@
         <div class="history-label">Today's Sessions</div>
         <div class="session-dots" id="sessionDots"></div>
       </div>
-
     </div>
   </div>
+
+  <!-- Weekly Chart -->
+  <div class="chart-section">
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3>Weekly Productivity</h3>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#7fff6e"></div>Tasks
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#6eb5ff"></div>Pomodoros
+          </div>
+        </div>
+      </div>
+      <div class="chart-body">
+        <div class="chart-loading" id="chartLoading">Loading chart data...</div>
+        <canvas id="weeklyChart" style="display:none"></canvas>
+      </div>
+      <div class="chart-summary">
+        <div class="chart-stat">
+          <div class="chart-stat-value stat-accent" id="weekTasks">—</div>
+          <div class="chart-stat-label">Tasks This Week</div>
+        </div>
+        <div class="chart-stat">
+          <div class="chart-stat-value stat-accent3" id="weekPomodoros">—</div>
+          <div class="chart-stat-label">Pomodoros This Week</div>
+        </div>
+        <div class="chart-stat">
+          <div class="chart-stat-value stat-accent2" id="weekPending">—</div>
+          <div class="chart-stat-label">Tasks Pending</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
@@ -633,16 +740,16 @@ const MODES = {
   long:  { label: 'LONG BREAK',  duration: 15 * 60, class: 'long-mode'  }
 };
 
-let mode        = 'work';
-let timeLeft    = MODES.work.duration;
-let totalTime   = MODES.work.duration;
-let running     = false;
-let interval    = null;
-let pomoCount   = 0;
+let mode         = 'work';
+let timeLeft     = MODES.work.duration;
+let totalTime    = MODES.work.duration;
+let running      = false;
+let interval     = null;
+let pomoCount    = 0;
 let selectedTask = null;
-let tasks       = [];
+let tasks        = [];
+let weeklyChart  = null;
 
-// Keep sessions & stats in localStorage (they are per-device/per-day)
 let sessions = JSON.parse(localStorage.getItem('ff_sessions') || '[]');
 let stats    = JSON.parse(localStorage.getItem('ff_stats')    || '{"sessions":0,"focus":0}');
 
@@ -661,11 +768,107 @@ async function init() {
   renderSessionDots();
   updateRing();
   await loadTasks();
+  await loadWeeklyChart();
 }
 
 function saveLocalState() {
   localStorage.setItem('ff_sessions', JSON.stringify(sessions));
   localStorage.setItem('ff_stats',    JSON.stringify(stats));
+}
+
+// ─── Weekly Chart ─────────────────────────────────────────
+async function loadWeeklyChart() {
+  try {
+    const data = await apiFetch('/tasks/stats/weekly');
+
+    const labels   = [];
+    const taskData = [];
+    const pomoData = [];
+
+    for (let i = 6; i >= 0; i--) {
+      const d   = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().split('T')[0];
+      const day = d.toLocaleDateString('en-US', { weekday: 'short' });
+      labels.push(day);
+      const stat = data.dailyStats ? data.dailyStats[key] : null;
+      taskData.push(stat ? stat.tasksCompleted     : 0);
+      pomoData.push(stat ? stat.pomodorosCompleted  : 0);
+    }
+
+    const totalTasks = taskData.reduce((a, b) => a + b, 0);
+    const totalPomos = pomoData.reduce((a, b) => a + b, 0);
+    document.getElementById('weekTasks').textContent     = totalTasks;
+    document.getElementById('weekPomodoros').textContent = totalPomos;
+    document.getElementById('weekPending').textContent   = data.totalPending ?? 0;
+
+    document.getElementById('chartLoading').style.display = 'none';
+    const canvas = document.getElementById('weeklyChart');
+    canvas.style.display = 'block';
+
+    if (weeklyChart) weeklyChart.destroy();
+
+    weeklyChart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Tasks Completed',
+            data: taskData,
+            backgroundColor: 'rgba(127,255,110,0.2)',
+            borderColor: 'rgba(127,255,110,0.9)',
+            borderWidth: 2,
+            borderRadius: 6,
+            borderSkipped: false,
+          },
+          {
+            label: 'Pomodoros',
+            data: pomoData,
+            backgroundColor: 'rgba(110,181,255,0.2)',
+            borderColor: 'rgba(110,181,255,0.9)',
+            borderWidth: 2,
+            borderRadius: 6,
+            borderSkipped: false,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a1a26',
+            borderColor: '#2a2a3a',
+            borderWidth: 1,
+            titleColor: '#e8e8f0',
+            bodyColor: '#5a5a7a',
+            titleFont: { family: 'Space Mono', size: 11 },
+            bodyFont:  { family: 'Space Mono', size: 11 },
+            padding: 12,
+          }
+        },
+        scales: {
+          x: {
+            grid:   { color: 'rgba(42,42,58,0.6)' },
+            border: { display: false },
+            ticks:  { color: '#5a5a7a', font: { family: 'Space Mono', size: 10 } }
+          },
+          y: {
+            beginAtZero: true,
+            grid:   { color: 'rgba(42,42,58,0.6)' },
+            border: { display: false },
+            ticks:  { color: '#5a5a7a', font: { family: 'Space Mono', size: 10 }, stepSize: 1, precision: 0 }
+          }
+        }
+      }
+    });
+
+  } catch (e) {
+    document.getElementById('chartLoading').textContent = 'Complete tasks to see your weekly chart!';
+  }
 }
 
 // ─── Tasks from API ──────────────────────────────────────
@@ -694,14 +897,10 @@ async function addTask() {
       method: 'POST',
       body: JSON.stringify({ title: name, estimatedPomodoros: 1 })
     });
-    tasks.push({
-      id:       newTask.id,
-      name:     newTask.title,
-      done:     false,
-      sessions: 0
-    });
+    tasks.push({ id: newTask.id, name: newTask.title, done: false, sessions: 0 });
     inp.value = '';
     renderTasks();
+    await loadWeeklyChart();
   } catch (e) {
     showToast('⚠️ Could not add task');
   }
@@ -719,6 +918,7 @@ async function toggleTask(id) {
         '<span class="active-task-none">No task selected — pick one →</span>';
     }
     renderTasks();
+    await loadWeeklyChart();
   } catch (e) {
     showToast('⚠️ Could not complete task');
   }
@@ -734,6 +934,7 @@ async function deleteTask(id) {
         '<span class="active-task-none">No task selected — pick one →</span>';
     }
     renderTasks();
+    await loadWeeklyChart();
   } catch (e) {
     showToast('⚠️ Could not delete task');
   }
@@ -757,8 +958,8 @@ function setMode(m) {
 
   const card = document.getElementById('timerCard');
   card.className = 'timer-card ' + MODES[m].class;
-  document.getElementById('modeLabel').textContent  = MODES[m].label;
-  document.getElementById('playBtn').textContent    = '▶';
+  document.getElementById('modeLabel').textContent = MODES[m].label;
+  document.getElementById('playBtn').textContent   = '▶';
 
   document.querySelectorAll('.mode-btn').forEach(b => {
     b.classList.remove('active', 'work', 'break', 'long');
@@ -814,7 +1015,6 @@ async function sessionComplete() {
       n: stats.sessions
     });
 
-    // Credit pomodoro to selected task in DB
     if (selectedTask !== null) {
       const t = tasks.find(t => t.id === selectedTask);
       if (t) {
@@ -832,6 +1032,7 @@ async function sessionComplete() {
     renderSessionDots();
     renderTasks();
     renderPomoDots();
+    await loadWeeklyChart();
 
     showToast('🎉 Session complete! Take a break.');
     setTimeout(() => setMode(pomoCount === 0 ? 'long' : 'break'), 1200);
@@ -893,8 +1094,8 @@ function renderTasks() {
   }
 
   tasks.forEach(t => {
-    const item       = document.createElement('div');
-    item.className   = 'task-item' +
+    const item     = document.createElement('div');
+    item.className = 'task-item' +
       (t.done ? ' done' : '') +
       (selectedTask === t.id ? ' selected' : '');
     item.innerHTML = `
@@ -922,10 +1123,9 @@ function renderStats() {
 
 // ─── Session dots ─────────────────────────────────────────
 function renderSessionDots() {
-  const c   = document.getElementById('sessionDots');
+  const c = document.getElementById('sessionDots');
   c.innerHTML = '';
-  const max = 12;
-  for (let i = 0; i < max; i++) {
+  for (let i = 0; i < 12; i++) {
     const d = document.createElement('div');
     if (i < sessions.length) {
       d.className   = 'session-dot focus';

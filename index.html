@@ -31,7 +31,6 @@
     overflow-x: hidden;
   }
 
-  /* Background grid */
   body::before {
     content: '';
     position: fixed;
@@ -52,7 +51,6 @@
     padding: 32px 20px 60px;
   }
 
-  /* Header */
   .header {
     display: flex;
     align-items: center;
@@ -60,11 +58,7 @@
     margin-bottom: 48px;
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .logo { display: flex; align-items: center; gap: 10px; }
 
   .logo-icon {
     width: 36px; height: 36px;
@@ -74,12 +68,7 @@
     font-size: 18px;
   }
 
-  .logo-text {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-
+  .logo-text { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
   .logo-text span { color: var(--accent); }
 
   .date-badge {
@@ -92,7 +81,6 @@
     letter-spacing: 0.5px;
   }
 
-  /* Mode selector */
   .mode-selector {
     display: flex;
     gap: 6px;
@@ -118,17 +106,11 @@
     letter-spacing: 0.3px;
   }
 
-  .mode-btn.active {
-    background: var(--surface2);
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  .mode-btn.active.work { color: var(--work); border-color: rgba(127,255,110,0.3); }
+  .mode-btn.active { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .mode-btn.active.work  { color: var(--work);  border-color: rgba(127,255,110,0.3); }
   .mode-btn.active.break { color: var(--break); border-color: rgba(110,181,255,0.3); }
-  .mode-btn.active.long { color: var(--long); border-color: rgba(255,184,110,0.3); }
+  .mode-btn.active.long  { color: var(--long);  border-color: rgba(255,184,110,0.3); }
 
-  /* Main grid */
   .main-grid {
     display: grid;
     grid-template-columns: 1fr 340px;
@@ -136,7 +118,6 @@
     align-items: start;
   }
 
-  /* Timer card */
   .timer-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -162,9 +143,9 @@
     transition: background 0.5s;
   }
 
-  .timer-card.work-mode::before { background: var(--work); }
+  .timer-card.work-mode::before  { background: var(--work); }
   .timer-card.break-mode::before { background: var(--break); }
-  .timer-card.long-mode::before { background: var(--long); }
+  .timer-card.long-mode::before  { background: var(--long); }
 
   .mode-label {
     font-size: 11px;
@@ -177,22 +158,17 @@
     transition: all 0.3s;
   }
 
-  .work-mode .mode-label { color: var(--work); background: rgba(127,255,110,0.1); border: 1px solid rgba(127,255,110,0.2); }
+  .work-mode  .mode-label { color: var(--work);  background: rgba(127,255,110,0.1); border: 1px solid rgba(127,255,110,0.2); }
   .break-mode .mode-label { color: var(--break); background: rgba(110,181,255,0.1); border: 1px solid rgba(110,181,255,0.2); }
-  .long-mode .mode-label { color: var(--long); background: rgba(255,184,110,0.1); border: 1px solid rgba(255,184,110,0.2); }
+  .long-mode  .mode-label { color: var(--long);  background: rgba(255,184,110,0.1); border: 1px solid rgba(255,184,110,0.2); }
 
-  /* SVG Ring */
   .ring-container {
     position: relative;
     width: 220px; height: 220px;
     margin-bottom: 36px;
   }
 
-  .ring-container svg {
-    transform: rotate(-90deg);
-    width: 100%; height: 100%;
-  }
-
+  .ring-container svg { transform: rotate(-90deg); width: 100%; height: 100%; }
   .ring-bg { fill: none; stroke: var(--surface2); stroke-width: 8; }
 
   .ring-progress {
@@ -202,9 +178,9 @@
     transition: stroke-dashoffset 1s linear, stroke 0.5s;
   }
 
-  .work-mode .ring-progress { stroke: var(--work); filter: drop-shadow(0 0 8px rgba(127,255,110,0.5)); }
+  .work-mode  .ring-progress { stroke: var(--work);  filter: drop-shadow(0 0 8px rgba(127,255,110,0.5)); }
   .break-mode .ring-progress { stroke: var(--break); filter: drop-shadow(0 0 8px rgba(110,181,255,0.5)); }
-  .long-mode .ring-progress { stroke: var(--long); filter: drop-shadow(0 0 8px rgba(255,184,110,0.5)); }
+  .long-mode  .ring-progress { stroke: var(--long);  filter: drop-shadow(0 0 8px rgba(255,184,110,0.5)); }
 
   .timer-center {
     position: absolute;
@@ -230,12 +206,7 @@
     margin-top: 6px;
   }
 
-  /* Controls */
-  .controls {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
+  .controls { display: flex; gap: 12px; align-items: center; }
 
   .ctrl-btn {
     border: none;
@@ -262,7 +233,7 @@
   .play-btn:hover { transform: scale(1.06); box-shadow: 0 0 40px rgba(127,255,110,0.4); }
   .break-mode .play-btn { background: var(--break); box-shadow: 0 0 30px rgba(110,181,255,0.25); }
   .break-mode .play-btn:hover { box-shadow: 0 0 40px rgba(110,181,255,0.4); }
-  .long-mode .play-btn { background: var(--long); box-shadow: 0 0 30px rgba(255,184,110,0.25); }
+  .long-mode  .play-btn { background: var(--long);  box-shadow: 0 0 30px rgba(255,184,110,0.25); }
 
   .icon-btn {
     width: 48px; height: 48px;
@@ -275,7 +246,6 @@
 
   .icon-btn:hover { color: var(--text); border-color: var(--accent); }
 
-  /* Active task */
   .active-task {
     margin-top: 28px;
     width: 100%;
@@ -299,7 +269,7 @@
 
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
+    50%       { opacity: 0.5; transform: scale(0.8); }
   }
 
   .active-task-name {
@@ -313,10 +283,8 @@
 
   .active-task-none { color: var(--muted); font-style: italic; }
 
-  /* Right column */
   .right-col { display: flex; flex-direction: column; gap: 16px; }
 
-  /* Stats row */
   .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
   .stat-card {
@@ -342,17 +310,11 @@
     line-height: 1;
   }
 
-  .stat-sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  .stat-accent { color: var(--accent); }
+  .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .stat-accent  { color: var(--accent); }
   .stat-accent2 { color: var(--accent2); }
   .stat-accent3 { color: var(--accent3); }
 
-  /* Task panel */
   .task-panel {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -368,11 +330,7 @@
     justify-content: space-between;
   }
 
-  .task-header h3 {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-  }
+  .task-header h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; }
 
   .task-count {
     font-family: 'Space Mono', monospace;
@@ -456,11 +414,7 @@
     font-size: 10px;
   }
 
-  .task-item.done .task-check {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #0a0a0f;
-  }
+  .task-item.done .task-check { background: var(--accent); border-color: var(--accent); color: #0a0a0f; }
 
   .task-name {
     flex: 1;
@@ -470,16 +424,9 @@
     user-select: none;
   }
 
-  .task-item.done .task-name {
-    text-decoration: line-through;
-    color: var(--muted);
-  }
+  .task-item.done .task-name { text-decoration: line-through; color: var(--muted); }
 
-  .task-sessions {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-  }
+  .task-sessions { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); }
 
   .task-del {
     background: none;
@@ -495,7 +442,6 @@
   .task-item:hover .task-del { opacity: 1; }
   .task-del:hover { color: var(--accent2); }
 
-  /* Session history */
   .history-panel {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -512,11 +458,7 @@
     margin-bottom: 12px;
   }
 
-  .session-dots {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
+  .session-dots { display: flex; gap: 6px; flex-wrap: wrap; }
 
   .session-dot {
     width: 28px; height: 28px;
@@ -530,10 +472,7 @@
   .session-dot.focus { background: rgba(127,255,110,0.15); color: var(--work); border: 1px solid rgba(127,255,110,0.25); }
   .session-dot.empty { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
 
-  /* Pomodoro dots */
-  .pomo-dots {
-    display: flex; gap: 6px; margin-top: 20px;
-  }
+  .pomo-dots { display: flex; gap: 6px; margin-top: 20px; }
 
   .pomo-dot {
     width: 10px; height: 10px;
@@ -543,10 +482,9 @@
     transition: all 0.3s;
   }
 
-  .pomo-dot.filled { background: var(--work); border-color: var(--work); }
+  .pomo-dot.filled  { background: var(--work); border-color: var(--work); }
   .pomo-dot.current { background: var(--work); border-color: var(--work); animation: pulse 1.5s infinite; }
 
-  /* Toast */
   .toast {
     position: fixed;
     bottom: 24px; left: 50%;
@@ -565,22 +503,18 @@
     white-space: nowrap;
   }
 
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* Animate in */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .timer-card { animation: fadeUp 0.5s ease both; }
-  .stat-card:nth-child(1) { animation: fadeUp 0.5s 0.1s ease both; }
-  .stat-card:nth-child(2) { animation: fadeUp 0.5s 0.15s ease both; }
-  .task-panel { animation: fadeUp 0.5s 0.2s ease both; }
-  .history-panel { animation: fadeUp 0.5s 0.25s ease both; }
+  .timer-card                  { animation: fadeUp 0.5s ease both; }
+  .stat-card:nth-child(1)      { animation: fadeUp 0.5s 0.1s  ease both; }
+  .stat-card:nth-child(2)      { animation: fadeUp 0.5s 0.15s ease both; }
+  .task-panel                  { animation: fadeUp 0.5s 0.2s  ease both; }
+  .history-panel               { animation: fadeUp 0.5s 0.25s ease both; }
 
   @media (max-width: 720px) {
     .main-grid { grid-template-columns: 1fr; }
@@ -592,7 +526,6 @@
 <body>
 <div class="app">
 
-  <!-- Header -->
   <header class="header">
     <div class="logo">
       <div class="logo-icon">⚡</div>
@@ -601,17 +534,14 @@
     <div class="date-badge" id="dateBadge"></div>
   </header>
 
-  <!-- Mode selector -->
   <div class="mode-selector">
-    <button class="mode-btn active work" data-mode="work" onclick="setMode('work')">Focus</button>
-    <button class="mode-btn break" data-mode="break" onclick="setMode('break')">Short Break</button>
-    <button class="mode-btn long" data-mode="long" onclick="setMode('long')">Long Break</button>
+    <button class="mode-btn active work"  data-mode="work"  onclick="setMode('work')">Focus</button>
+    <button class="mode-btn break"        data-mode="break" onclick="setMode('break')">Short Break</button>
+    <button class="mode-btn long"         data-mode="long"  onclick="setMode('long')">Long Break</button>
   </div>
 
-  <!-- Main grid -->
   <div class="main-grid">
 
-    <!-- Timer -->
     <div class="timer-card work-mode" id="timerCard">
       <div class="mode-label" id="modeLabel">FOCUS TIME</div>
 
@@ -633,10 +563,8 @@
         <button class="ctrl-btn icon-btn" onclick="skipSession()" title="Skip">⏭</button>
       </div>
 
-      <!-- Pomo dots -->
       <div class="pomo-dots" id="pomoDots"></div>
 
-      <!-- Active task -->
       <div class="active-task">
         <div class="active-task-dot"></div>
         <div class="active-task-name" id="activeTaskDisplay">
@@ -645,10 +573,8 @@
       </div>
     </div>
 
-    <!-- Right column -->
     <div class="right-col">
 
-      <!-- Stats -->
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-label">Today</div>
@@ -662,7 +588,6 @@
         </div>
       </div>
 
-      <!-- Tasks -->
       <div class="task-panel">
         <div class="task-header">
           <h3>Task Queue</h3>
@@ -676,7 +601,6 @@
         <div class="task-list" id="taskList"></div>
       </div>
 
-      <!-- History -->
       <div class="history-panel">
         <div class="history-label">Today's Sessions</div>
         <div class="session-dots" id="sessionDots"></div>
@@ -686,52 +610,133 @@
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
+// ─── API ─────────────────────────────────────────────────
+const API_BASE = 'http://localhost:8080/api/v1';
+
+async function apiFetch(endpoint, options = {}) {
+  const res = await fetch(API_BASE + endpoint, {
+    headers: { 'Content-Type': 'application/json' },
+    ...options
+  });
+  if (!res.ok) throw new Error('API error ' + res.status);
+  if (res.status === 204) return null;
+  return res.json();
+}
+
 // ─── State ───────────────────────────────────────────────
 const MODES = {
-  work:  { label: 'FOCUS TIME',   duration: 25 * 60, class: 'work-mode' },
-  break: { label: 'SHORT BREAK',  duration: 5  * 60, class: 'break-mode' },
-  long:  { label: 'LONG BREAK',   duration: 15 * 60, class: 'long-mode' }
+  work:  { label: 'FOCUS TIME',  duration: 25 * 60, class: 'work-mode'  },
+  break: { label: 'SHORT BREAK', duration:  5 * 60, class: 'break-mode' },
+  long:  { label: 'LONG BREAK',  duration: 15 * 60, class: 'long-mode'  }
 };
 
-let mode = 'work';
-let timeLeft = MODES.work.duration;
-let totalTime = MODES.work.duration;
-let running = false;
-let interval = null;
-let pomoCount = 0;
+let mode        = 'work';
+let timeLeft    = MODES.work.duration;
+let totalTime   = MODES.work.duration;
+let running     = false;
+let interval    = null;
+let pomoCount   = 0;
 let selectedTask = null;
+let tasks       = [];
 
-// Load from localStorage
-let tasks = JSON.parse(localStorage.getItem('ff_tasks') || '[]');
+// Keep sessions & stats in localStorage (they are per-device/per-day)
 let sessions = JSON.parse(localStorage.getItem('ff_sessions') || '[]');
-let stats = JSON.parse(localStorage.getItem('ff_stats') || '{"sessions":0,"focus":0}');
+let stats    = JSON.parse(localStorage.getItem('ff_stats')    || '{"sessions":0,"focus":0}');
 
-// Check if today
 const today = new Date().toDateString();
 if (stats.date !== today) {
-  stats = { date: today, sessions: 0, focus: 0 };
+  stats    = { date: today, sessions: 0, focus: 0 };
   sessions = [];
-  saveAll();
+  saveLocalState();
 }
 
 // ─── Init ────────────────────────────────────────────────
-function init() {
+async function init() {
   updateDateBadge();
   renderPomoDots();
-  renderTasks();
   renderStats();
   renderSessionDots();
   updateRing();
+  await loadTasks();
 }
 
-function saveAll() {
-  localStorage.setItem('ff_tasks', JSON.stringify(tasks));
+function saveLocalState() {
   localStorage.setItem('ff_sessions', JSON.stringify(sessions));
-  localStorage.setItem('ff_stats', JSON.stringify(stats));
+  localStorage.setItem('ff_stats',    JSON.stringify(stats));
+}
+
+// ─── Tasks from API ──────────────────────────────────────
+async function loadTasks() {
+  try {
+    const data = await apiFetch('/tasks?activeOnly=true');
+    tasks = data.map(t => ({
+      id:       t.id,
+      name:     t.title,
+      done:     t.status === 'COMPLETED',
+      sessions: t.pomodoroCount
+    }));
+    renderTasks();
+  } catch (e) {
+    showToast('⚠️ Could not load tasks — is the server running?');
+    renderTasks();
+  }
+}
+
+async function addTask() {
+  const inp  = document.getElementById('taskInput');
+  const name = inp.value.trim();
+  if (!name) return;
+  try {
+    const newTask = await apiFetch('/tasks', {
+      method: 'POST',
+      body: JSON.stringify({ title: name, estimatedPomodoros: 1 })
+    });
+    tasks.push({
+      id:       newTask.id,
+      name:     newTask.title,
+      done:     false,
+      sessions: 0
+    });
+    inp.value = '';
+    renderTasks();
+  } catch (e) {
+    showToast('⚠️ Could not add task');
+  }
+}
+
+async function toggleTask(id) {
+  const t = tasks.find(t => t.id === id);
+  if (!t) return;
+  try {
+    await apiFetch(`/tasks/${id}/complete`, { method: 'PATCH' });
+    t.done = true;
+    if (selectedTask === id) {
+      selectedTask = null;
+      document.getElementById('activeTaskDisplay').innerHTML =
+        '<span class="active-task-none">No task selected — pick one →</span>';
+    }
+    renderTasks();
+  } catch (e) {
+    showToast('⚠️ Could not complete task');
+  }
+}
+
+async function deleteTask(id) {
+  try {
+    await apiFetch(`/tasks/${id}`, { method: 'DELETE' });
+    tasks = tasks.filter(t => t.id !== id);
+    if (selectedTask === id) {
+      selectedTask = null;
+      document.getElementById('activeTaskDisplay').innerHTML =
+        '<span class="active-task-none">No task selected — pick one →</span>';
+    }
+    renderTasks();
+  } catch (e) {
+    showToast('⚠️ Could not delete task');
+  }
 }
 
 // ─── Date ────────────────────────────────────────────────
@@ -743,21 +748,18 @@ function updateDateBadge() {
 
 // ─── Mode ────────────────────────────────────────────────
 function setMode(m) {
-  if (running) { stopTimer(); }
-  mode = m;
-  timeLeft = MODES[m].duration;
+  if (running) stopTimer();
+  mode      = m;
+  timeLeft  = MODES[m].duration;
   totalTime = MODES[m].duration;
   updateDisplay();
   updateRing();
 
-  // Card class
   const card = document.getElementById('timerCard');
   card.className = 'timer-card ' + MODES[m].class;
+  document.getElementById('modeLabel').textContent  = MODES[m].label;
+  document.getElementById('playBtn').textContent    = '▶';
 
-  document.getElementById('modeLabel').textContent = MODES[m].label;
-  document.getElementById('playBtn').textContent = '▶';
-
-  // Mode buttons
   document.querySelectorAll('.mode-btn').forEach(b => {
     b.classList.remove('active', 'work', 'break', 'long');
     if (b.dataset.mode === m) b.classList.add('active', m);
@@ -765,9 +767,7 @@ function setMode(m) {
 }
 
 // ─── Timer ───────────────────────────────────────────────
-function toggleTimer() {
-  running ? stopTimer() : startTimer();
-}
+function toggleTimer() { running ? stopTimer() : startTimer(); }
 
 function startTimer() {
   running = true;
@@ -782,10 +782,7 @@ function stopTimer() {
 }
 
 function tick() {
-  if (timeLeft <= 0) {
-    sessionComplete();
-    return;
-  }
+  if (timeLeft <= 0) { sessionComplete(); return; }
   timeLeft--;
   updateDisplay();
   updateRing();
@@ -793,7 +790,7 @@ function tick() {
 
 function resetTimer() {
   stopTimer();
-  timeLeft = MODES[mode].duration;
+  timeLeft  = MODES[mode].duration;
   totalTime = MODES[mode].duration;
   updateDisplay();
   updateRing();
@@ -804,23 +801,33 @@ function skipSession() {
   sessionComplete();
 }
 
-function sessionComplete() {
+async function sessionComplete() {
   stopTimer();
 
   if (mode === 'work') {
     pomoCount = (pomoCount + 1) % 4;
     stats.sessions++;
     stats.focus += 25;
-    stats.date = today;
-    sessions.push({ time: new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }), n: stats.sessions });
+    stats.date   = today;
+    sessions.push({
+      time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      n: stats.sessions
+    });
 
-    // Credit task
+    // Credit pomodoro to selected task in DB
     if (selectedTask !== null) {
       const t = tasks.find(t => t.id === selectedTask);
-      if (t) { t.sessions = (t.sessions || 0) + 1; }
+      if (t) {
+        t.sessions = (t.sessions || 0) + 1;
+        try {
+          await apiFetch(`/tasks/${t.id}/pomodoro`, { method: 'PATCH' });
+        } catch (e) {
+          console.warn('Could not log pomodoro to API');
+        }
+      }
     }
 
-    saveAll();
+    saveLocalState();
     renderStats();
     renderSessionDots();
     renderTasks();
@@ -843,9 +850,8 @@ function updateDisplay() {
 }
 
 function updateRing() {
-  const circ = 2 * Math.PI * 96; // ≈ 603.2
-  const pct = timeLeft / totalTime;
-  const offset = circ * (1 - pct);
+  const circ   = 2 * Math.PI * 96;
+  const offset = circ * (1 - timeLeft / totalTime);
   document.getElementById('ringProgress').style.strokeDashoffset = offset;
 }
 
@@ -855,62 +861,42 @@ function renderPomoDots() {
   c.innerHTML = '';
   for (let i = 0; i < 4; i++) {
     const d = document.createElement('div');
-    d.className = 'pomo-dot' + (i < pomoCount ? ' filled' : (i === pomoCount && mode === 'work' && running ? ' current' : ''));
+    d.className = 'pomo-dot' +
+      (i < pomoCount ? ' filled' :
+      (i === pomoCount && mode === 'work' && running ? ' current' : ''));
     c.appendChild(d);
   }
 }
 
-// ─── Tasks ───────────────────────────────────────────────
-function addTask() {
-  const inp = document.getElementById('taskInput');
-  const name = inp.value.trim();
-  if (!name) return;
-  tasks.push({ id: Date.now(), name, done: false, sessions: 0 });
-  inp.value = '';
-  saveAll();
-  renderTasks();
-}
-
+// ─── Tasks render ────────────────────────────────────────
 function selectTask(id) {
   selectedTask = selectedTask === id ? null : id;
-  const t = tasks.find(t => t.id === id);
+  const t  = tasks.find(t => t.id === id);
   const el = document.getElementById('activeTaskDisplay');
   if (selectedTask && t) {
-    el.innerHTML = t.name;
+    el.innerHTML = escHtml(t.name);
   } else {
     el.innerHTML = '<span class="active-task-none">No task selected — pick one →</span>';
   }
   renderTasks();
 }
 
-function toggleTask(id) {
-  const t = tasks.find(t => t.id === id);
-  if (t) { t.done = !t.done; }
-  saveAll();
-  renderTasks();
-}
-
-function deleteTask(id) {
-  tasks = tasks.filter(t => t.id !== id);
-  if (selectedTask === id) {
-    selectedTask = null;
-    document.getElementById('activeTaskDisplay').innerHTML = '<span class="active-task-none">No task selected — pick one →</span>';
-  }
-  saveAll();
-  renderTasks();
-}
-
 function renderTasks() {
   const list = document.getElementById('taskList');
-  document.getElementById('taskCount').textContent = tasks.length + ' task' + (tasks.length !== 1 ? 's' : '');
+  document.getElementById('taskCount').textContent =
+    tasks.length + ' task' + (tasks.length !== 1 ? 's' : '');
   list.innerHTML = '';
+
   if (tasks.length === 0) {
     list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px;">No tasks yet. Add one above.</div>';
     return;
   }
+
   tasks.forEach(t => {
-    const item = document.createElement('div');
-    item.className = 'task-item' + (t.done ? ' done' : '') + (selectedTask === t.id ? ' selected' : '');
+    const item       = document.createElement('div');
+    item.className   = 'task-item' +
+      (t.done ? ' done' : '') +
+      (selectedTask === t.id ? ' selected' : '');
     item.innerHTML = `
       <div class="task-check" onclick="event.stopPropagation();toggleTask(${t.id})">${t.done ? '✓' : ''}</div>
       <div class="task-name">${escHtml(t.name)}</div>
@@ -936,17 +922,17 @@ function renderStats() {
 
 // ─── Session dots ─────────────────────────────────────────
 function renderSessionDots() {
-  const c = document.getElementById('sessionDots');
+  const c   = document.getElementById('sessionDots');
   c.innerHTML = '';
   const max = 12;
   for (let i = 0; i < max; i++) {
     const d = document.createElement('div');
     if (i < sessions.length) {
-      d.className = 'session-dot focus';
+      d.className   = 'session-dot focus';
       d.textContent = i + 1;
-      d.title = sessions[i].time;
+      d.title       = sessions[i].time;
     } else {
-      d.className = 'session-dot empty';
+      d.className   = 'session-dot empty';
       d.textContent = i + 1;
     }
     c.appendChild(d);

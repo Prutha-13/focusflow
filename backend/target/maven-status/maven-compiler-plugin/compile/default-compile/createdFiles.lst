@@ -1,0 +1,13 @@
+com\focusflow\FocusflowApiApplication.class
+com\focusflow\repository\TaskRepository.class
+com\focusflow\dto\TaskRequestDTO.class
+com\focusflow\service\TaskService.class
+com\focusflow\controller\TaskController.class
+com\focusflow\dto\WeeklyStatsDTO.class
+com\focusflow\dto\WeeklyStatsDTO$DayStat.class
+com\focusflow\exception\TaskNotFoundException.class
+com\focusflow\entity\Task.class
+com\focusflow\dto\TaskResponseDTO.class
+com\focusflow\exception\GlobalExceptionHandler.class
+com\focusflow\entity\Task$TaskStatus.class
+com\focusflow\entity\Task$Priority.class

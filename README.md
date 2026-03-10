@@ -4,6 +4,7 @@ A full-stack Pomodoro productivity app that helps you focus, track tasks, and vi
 
 🌐 **Live App:** https://prutha-13.github.io/focusflow/  
 🔌 **API:** https://focusflow-production-22b8.up.railway.app/api/v1/tasks
+![FocusFlow](screenshot.png)
 
 ---
 

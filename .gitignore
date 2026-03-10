@@ -1,0 +1,66 @@
+# ===============================
+# JAVA / MAVEN
+# ===============================
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# ===============================
+# SPRING BOOT
+# ===============================
+spring-shell.log
+*.log
+logs/
+
+# ===============================
+# SECRETS — NEVER COMMIT THESE
+# ===============================
+application-local.properties
+application-secret.properties
+.env
+.env.*
+secrets.properties
+
+# ===============================
+# IDE — IntelliJ IDEA
+# ===============================
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# ===============================
+# IDE — VS Code
+# ===============================
+.vscode/
+*.code-workspace
+
+# ===============================
+# IDE — Eclipse
+# ===============================
+.classpath
+.project
+.settings/
+bin/
+
+# ===============================
+# OS FILES
+# ===============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===============================
+# NODE (if ever added)
+# ===============================
+node_modules/
+npm-debug.log*
